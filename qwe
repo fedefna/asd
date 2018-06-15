@@ -1,0 +1,30 @@
+#include <Sodaq_DS3231.h>
+#include <DS3231.h>
+#include <LiquidCrystal_I2C.h>
+
+DS3231  reloj(SDA, SCL);
+LiquidCrystal_I2C lcd(0x27,16,2);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+
+void setup()
+{
+  lcd.init();                      // initialize the lcd 
+  // Print a message to the LCD.
+  lcd.backlight();
+  
+  reloj.begin();
+}
+
+
+void loop()
+{
+  lcd.setCursor(0,0);
+  //lcd.print(reloj.getDateStr());
+  //lcd.print(" ");
+  lcd.print(reloj.getTemp());
+  lcd.print("C");
+  lcd.setCursor(0,1);
+  lcd.print(reloj.getTimeStr());
+  lcd.print(" ");
+  lcd.print(reloj.getDOWStr());
+  delay(1000);
+}
